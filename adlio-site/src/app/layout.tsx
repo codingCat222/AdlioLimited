@@ -24,9 +24,9 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${inter.variable} font-sans antialiased bg-[#0D0D0F] text-white selection:bg-[#C8F031] selection:text-[#0D0D0F]`}>
         <div className="fixed inset-0 z-0 pointer-events-none">
-          {/* <HeroCanvas /> */}
+          <HeroCanvas />
         </div>
-        {/* <Navbar /> */}
+        <Navbar />
         <div className="relative z-10">
           {children}
         </div>
