@@ -9,18 +9,18 @@ export default function Home() {
     <main className="min-h-screen relative z-10">
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-transparent">
         <div className="absolute top-32 left-8 right-8 max-w-7xl mx-auto flex justify-between text-[10px] text-muted tracking-[0.2em] z-10 pointer-events-none">
-          <span>ADLIO LIMITED — EST. 2020</span>
-          <span className="text-[#C8F031]">● NOW BOOKING — Q4 2026</span>
+          <span>ADLIO LIMITED — TECHNOLOGY PARTNER</span>
+          <span className="text-[#C8F031]">● SERVING BANKS, GOVERNMENT & ENTERPRISE</span>
         </div>
         <div className="relative z-10 max-w-6xl mx-auto px-8 text-center mt-10">
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="text-7xl md:text-8xl lg:text-[7.5rem] font-bold text-white leading-[0.9] tracking-tight mb-8">
-            We design and build <br />
-            digital products that <br />
-            move markets forward.
+            Software that <br />
+            organizations can <br />
+            build their future on.
           </motion.h1>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }} className="flex flex-col md:flex-row items-center justify-between max-w-5xl mx-auto mt-12 border-t border-border pt-8">
             <p className="text-muted text-left max-w-md text-sm md:text-base">
-              Premium design and development partnership for ambitious teams shipping at scale.
+              Custom systems, fintech infrastructure, and digital transformation for financial institutions, government agencies, and growing enterprises across Africa.
             </p>
             <div className="flex items-center gap-6 mt-6 md:mt-0">
               <Link href="/contact" className="px-8 py-3 bg-white text-[#0D0D0F] font-semibold rounded-sm hover:bg-gray-200 transition-colors flex items-center gap-2">
@@ -40,19 +40,18 @@ export default function Home() {
       <section className="py-32 px-8 max-w-7xl mx-auto border-t border-border">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <p className="text-muted text-xs tracking-widest uppercase mb-6">Our Philosophy</p>
+            <p className="text-muted text-xs tracking-widest uppercase mb-6">Enterprise Software — Africa</p>
             <motion.h2 initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-7xl font-bold text-white leading-[1.1] tracking-tight mb-6">
-              We don't just build websites. <br />
-              We craft digital experiences <br />
-              that <span className="border-b-4 border-[#C8F031]">move</span> people to act.
+              Trusted by institutions <br />
+              that move nations.
             </motion.h2>
             <p className="text-muted text-lg leading-relaxed max-w-lg">
-              Every pixel, every interaction, every line of code serves a purpose. We obsess over the details so your users don't have to think, they just feel it.
+              We build mission-critical software for the public and private sector. Solutions that are scalable, secure, and built to serve millions.
             </p>
           </div>
           <div className="relative hidden lg:flex items-center justify-center overflow-hidden">
             <div className="text-[15rem] font-bold text-white/5 tracking-tighter select-none absolute right-0 top-0 leading-none">
-              Design
+              Scale
             </div>
           </div>
         </div>
@@ -77,7 +76,7 @@ export default function Home() {
 
       <section className="py-24 px-8 max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-12 border-b border-border pb-8">
-          <div><p className="text-muted text-xs tracking-widest uppercase mb-2">What We Do</p><h2 className="text-5xl font-bold text-white">Services built for <br /> ambitious brands.</h2></div>
+          <div><p className="text-muted text-xs tracking-widest uppercase mb-2">What We Do</p><h2 className="text-5xl font-bold text-white">Services built for <br /> ambitious institutions.</h2></div>
           <Link href="/services" className="text-muted hover:text-white transition-colors text-sm">View all services →</Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-border">
