@@ -1,35 +1,42 @@
 "use client";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 
 function Stars() {
   const ref = useRef<THREE.Points>(null);
+  
+  // Static positions (don't change)
   const [positions] = useState(() => {
     const count = 3000;
     const pos = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-
     for (let i = 0; i < count * 3; i += 3) {
       const radius = 10 + Math.random() * 5;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
-
       pos[i] = radius * Math.sin(phi) * Math.cos(theta);
       pos[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
       pos[i + 2] = radius * Math.cos(phi);
-
-      // blue particles to match new accent
-      const color = new THREE.Color("#3B82F6");
-      color.multiplyScalar(0.3 + Math.random() * 0.5);
-      colors[i] = color.r;
-      colors[i + 1] = color.g;
-      colors[i + 2] = color.b;
     }
-
-    return { pos, colors };
+    return pos;
   });
+
+  // Dynamic color state
+  const [color, setColor] = useState("#3B82F6");
+
+  useEffect(() => {
+    // Cycle through 4 colors every 3 seconds
+    const colors = ["#3B82F6", "#8B5CF6", "#06B6D4", "#3B82F6"];
+    let index = 0;
+
+    const interval = setInterval(() => {
+      index = (index + 1) % colors.length;
+      setColor(colors[index]);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useFrame((state) => {
     if (ref.current) {
@@ -39,13 +46,14 @@ function Stars() {
   });
 
   return (
-    <Points ref={ref} positions={positions.pos} colors={positions.colors}>
+    <Points ref={ref} positions={positions}>
       <PointMaterial
         transparent
-        vertexColors
+        color={color} // <- This changes every 3 seconds!
         size={0.08}
         sizeAttenuation
         depthWrite={false}
+        opacity={0.7}
         blending={THREE.AdditiveBlending}
       />
     </Points>

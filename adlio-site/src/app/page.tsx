@@ -1,6 +1,7 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import Marquee from "@/components/home/Marquee";
 import Footer from "@/components/layout/Footer";
 import HeroCanvas from "@/components/home/HeroCanvas";
@@ -9,7 +10,7 @@ import { Building2, Landmark, Stethoscope, Briefcase } from "lucide-react";
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: "easeOut" },
+  transition: { duration: 0.7, delay, ease: [0.25, 0.1, 0.25, 1] as const },
 });
 
 const services = [
@@ -42,35 +43,125 @@ const industries = [
   { label: "SMEs", sub: "Growing businesses", icon: Briefcase },
 ];
 
+const heroSlides = [
+  {
+    bg: "#0B1120",
+    tagline: "Enterprise Technology Partner",
+    headline: (
+      <>
+        Software{" "}
+        <span className="text-[#3B82F6]">built for</span>{" "}
+        institutions that can&apos;t afford to fail.
+      </>
+    ),
+    subtext: "Custom systems, fintech infrastructure, and digital transformation for banks, government agencies, and enterprises across Africa.",
+  },
+  {
+    bg: "#1E1B4B",
+    tagline: "Digital Transformation Experts",
+    headline: (
+      <>
+        Modernizing{" "}
+        <span className="text-[#3B82F6]">legacy systems</span>{" "}
+        into future-ready infrastructure.
+      </>
+    ),
+    subtext: "We help organizations automate processes, optimize performance, and leverage emerging technologies to stay ahead.",
+  },
+  {
+    bg: "#1C3D5A",
+    tagline: "Trusted by Institutions",
+    headline: (
+      <>
+        Security, scalability, and{" "}
+        <span className="text-[#3B82F6]">precision</span>{" "}
+        at every level of your organization.
+      </>
+    ),
+    subtext: "From banking to government, our enterprise-grade solutions are built to handle mission-critical operations.",
+  },
+  {
+    bg: "#0F172A",
+    tagline: "Africa's Tech Partner",
+    headline: (
+      <>
+        Empowering{" "}
+        <span className="text-[#3B82F6]">growth</span>{" "}
+        through innovation and exceptional delivery.
+      </>
+    ),
+    subtext: "We are committed to building smarter businesses across the continent with world-class technology.",
+  },
+];
+
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const slide = heroSlides[currentSlide];
+
   return (
     <main className="min-h-screen">
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex items-center pt-20 bg-[#0B1120] overflow-hidden">
-        
-        {/* 3D Canvas Background */}
-        <div className="absolute inset-0 z-0 opacity-80">
+      <section
+        className="relative min-h-screen flex items-center pt-20 overflow-hidden transition-colors duration-1000"
+        style={{ backgroundColor: slide.bg }}
+      >
+        <div className="absolute inset-0 z-0 opacity-60">
           <HeroCanvas />
         </div>
-        
-        {/* subtle radial glow over the canvas */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#0B1120]/80 via-transparent to-[#0B1120]/60 pointer-events-none z-0" />
+        <div className="absolute inset-0 bg-black/20 pointer-events-none z-0" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 w-full py-20">
-          <motion.p {...fadeUp(0)} className="text-[#3B82F6] text-xs tracking-[0.2em] font-semibold uppercase mb-6">
-            Enterprise Technology Partner
-          </motion.p>
+
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={`tag-${currentSlide}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5 }}
+              className="text-[#3B82F6] text-xs tracking-[0.2em] font-semibold uppercase mb-6"
+            >
+              {slide.tagline}
+            </motion.p>
+          </AnimatePresence>
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             <div className="lg:col-span-8">
-              <motion.h1 {...fadeUp(0.1)} className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.05] tracking-tight mb-6">
-                Software{" "}
-                <span className="text-[#3B82F6]">built for</span>{" "}
-                institutions that can't afford to fail.
-              </motion.h1>
-              <motion.p {...fadeUp(0.2)} className="text-[#94A3B8] text-lg md:text-xl leading-relaxed max-w-2xl mb-8">
-                Custom systems, fintech infrastructure, and digital transformation for banks, government agencies, and enterprises across Africa.
-              </motion.p>
+              <AnimatePresence mode="wait">
+                <motion.h1
+                  key={`head-${currentSlide}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const }}
+                  className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.05] tracking-tight mb-6"
+                >
+                  {slide.headline}
+                </motion.h1>
+              </AnimatePresence>
+
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={`sub-${currentSlide}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] as const }}
+                  className="text-[#94A3B8] text-lg md:text-xl leading-relaxed max-w-2xl mb-8"
+                >
+                  {slide.subtext}
+                </motion.p>
+              </AnimatePresence>
+
               <motion.div {...fadeUp(0.3)} className="flex items-center gap-4 flex-wrap">
                 <Link href="/contact" className="px-8 py-4 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-[#2563EB] transition-colors text-sm">
                   Explore our services
@@ -79,11 +170,28 @@ export default function Home() {
                   Talk to us
                 </Link>
               </motion.div>
+
+              {/* slide dots */}
+              <div className="flex items-center gap-2 mt-10">
+                {heroSlides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentSlide(i)}
+                    className={`transition-all duration-300 rounded-full ${
+                      i === currentSlide
+                        ? "w-6 h-2 bg-[#3B82F6]"
+                        : "w-2 h-2 bg-white/20 hover:bg-white/40"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
+
+            {/* trust card */}
             <motion.div
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }}
               className="lg:col-span-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6"
             >
               <p className="text-[10px] text-[#94A3B8] tracking-[0.15em] font-semibold uppercase mb-4">Trusted Across</p>
@@ -132,13 +240,9 @@ export default function Home() {
                 <div className="mb-3 text-white">
                   <Icon size={24} />
                 </div>
-                <div className="text-white font-bold text-xl leading-tight mb-1">
-                  {ind.label}
-                </div>
+                <div className="text-white font-bold text-xl leading-tight mb-1">{ind.label}</div>
                 <div className="text-blue-200 text-sm">{ind.sub}</div>
-                <div className="absolute bottom-6 right-6 text-blue-300/0 group-hover:text-blue-200/80 transition-all duration-300 text-lg">
-                  →
-                </div>
+                <div className="absolute bottom-6 right-6 text-blue-300/0 group-hover:text-blue-200/80 transition-all duration-300 text-lg">→</div>
               </motion.div>
             );
           })}
@@ -146,7 +250,7 @@ export default function Home() {
         <div className="bg-[#0F172A] px-6 md:px-8 py-3 flex items-center gap-6 overflow-hidden">
           {["Banking & Finance", "FinTech", "Healthcare", "Government", "Education", "Insurance", "Manufacturing", "Logistics", "Retail", "SMEs", "Hospitality", "Professional Services"].map((s, i) => (
             <span key={i} className="text-[10px] text-[#334155] tracking-widest uppercase whitespace-nowrap font-medium flex items-center gap-4">
-              {s} {i < 11 && <span className="text-[#3B82F6] text-[8px]">◆</span>}
+              {s}{i < 11 && <span className="text-[#3B82F6] text-[8px] ml-4">◆</span>}
             </span>
           ))}
         </div>
@@ -234,7 +338,7 @@ export default function Home() {
               View all projects →
             </Link>
           </div>
-          <div className="space-y-0 border-t border-[#E2E8F0]">
+          <div className="border-t border-[#E2E8F0]">
             {projects.map((p, i) => (
               <motion.div
                 key={i}
