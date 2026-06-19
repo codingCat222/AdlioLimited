@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { NewsletterSchema } from '@/lib/validators';
 import { prisma } from '@/lib/db';
+import { getResendClient } from '@/lib/mailer';
 
 export async function POST(request: Request) {
   try {
@@ -10,6 +11,15 @@ export async function POST(request: Request) {
 
     await prisma.newsletterSignup.create({
       data: { email },
+    });
+
+    const resend = getResendClient();
+
+    await resend.emails.send({
+      from: 'Adlio <onboarding@resend.dev>',
+      to: [process.env.ADMIN_EMAIL || 'your-email@example.com'],
+      subject: 'New Newsletter Subscription',
+      html: `<p>New subscriber: ${email}</p>`,
     });
 
     return NextResponse.json({ success: true }, { status: 200 });

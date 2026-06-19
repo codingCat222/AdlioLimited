@@ -9,17 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0D0D0F",
-        accent: "#C8F031",
-        foreground: "#FFFFFF",
-        muted: "#8A8A9A",
-        card: "#1A1A1C",
-        border: "rgba(255,255,255,0.05)",
+        background: "#F8F9FB",
+        accent: "#3B82F6",
+        foreground: "#0F172A",
+        muted: "#64748B",
+        card: "#FFFFFF",
+        border: "#E2E8F0",
+        "dark-bg": "#0A0A0F",
+        "dark-border": "rgba(255,255,255,0.06)",
+        "dark-muted": "#6E6E6E",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
       },
-      // 🟢 ADD THIS SECTION BELOW 🟢
       keyframes: {
         scroll: {
           "0%": { transform: "translateX(0)" },
@@ -33,4 +35,4 @@ const config: Config = {
   },
   plugins: [],
 };
-export default  config;
+export default config;

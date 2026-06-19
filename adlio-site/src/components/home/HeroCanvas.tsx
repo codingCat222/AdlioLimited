@@ -20,8 +20,9 @@ function Stars() {
       pos[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
       pos[i + 2] = radius * Math.cos(phi);
 
-      const color = new THREE.Color("#C8F031");
-      color.multiplyScalar(0.2 + Math.random() * 0.4);
+      // blue particles to match new accent
+      const color = new THREE.Color("#3B82F6");
+      color.multiplyScalar(0.3 + Math.random() * 0.5);
       colors[i] = color.r;
       colors[i + 1] = color.g;
       colors[i + 2] = color.b;

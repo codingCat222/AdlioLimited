@@ -21,16 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.variable} font-sans antialiased bg-[#0D0D0F] text-white selection:bg-[#C8F031] selection:text-[#0D0D0F]`}>
-        <div className="fixed inset-0 z-0 pointer-events-none">
+    <html lang="en">
+      <body className={`${inter.variable} font-sans antialiased bg-white text-[#0F172A] selection:bg-[#3B82F6] selection:text-white`}>
+        <div className="fixed inset-0 z-0 pointer-events-none opacity-20">
           <HeroCanvas />
         </div>
         <Navbar />
         <div className="relative z-10">
           {children}
         </div>
-        {/* <Footer /> */}
       </body>
     </html>
   );
