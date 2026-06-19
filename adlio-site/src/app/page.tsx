@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Marquee from "@/components/home/Marquee";
 import Footer from "@/components/layout/Footer";
+import HeroCanvas from "@/components/home/HeroCanvas";
 import { Building2, Landmark, Stethoscope, Briefcase } from "lucide-react";
 
 const fadeUp = (delay = 0) => ({
@@ -46,26 +47,35 @@ export default function Home() {
     <main className="min-h-screen">
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex items-center pt-20 bg-white/95 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 w-full py-20">
+      <section className="relative min-h-screen flex items-center pt-20 bg-[#0B1120] overflow-hidden">
+        
+        {/* 3D Canvas Background */}
+        <div className="absolute inset-0 z-0 opacity-80">
+          <HeroCanvas />
+        </div>
+        
+        {/* subtle radial glow over the canvas */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#0B1120]/80 via-transparent to-[#0B1120]/60 pointer-events-none z-0" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 w-full py-20">
           <motion.p {...fadeUp(0)} className="text-[#3B82F6] text-xs tracking-[0.2em] font-semibold uppercase mb-6">
             Enterprise Technology Partner
           </motion.p>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <motion.h1 {...fadeUp(0.1)} className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#0F172A] leading-[1.1] tracking-tight mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-8">
+              <motion.h1 {...fadeUp(0.1)} className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold text-white leading-[1.05] tracking-tight mb-6">
                 Software{" "}
                 <span className="text-[#3B82F6]">built for</span>{" "}
                 institutions that can't afford to fail.
               </motion.h1>
-              <motion.p {...fadeUp(0.2)} className="text-[#64748B] text-base md:text-lg leading-relaxed max-w-lg mb-8">
+              <motion.p {...fadeUp(0.2)} className="text-[#94A3B8] text-lg md:text-xl leading-relaxed max-w-2xl mb-8">
                 Custom systems, fintech infrastructure, and digital transformation for banks, government agencies, and enterprises across Africa.
               </motion.p>
-              <motion.div {...fadeUp(0.3)} className="flex items-center gap-4">
-                <Link href="/contact" className="px-7 py-3 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-[#2563EB] transition-colors text-sm">
+              <motion.div {...fadeUp(0.3)} className="flex items-center gap-4 flex-wrap">
+                <Link href="/contact" className="px-8 py-4 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-[#2563EB] transition-colors text-sm">
                   Explore our services
                 </Link>
-                <Link href="/contact" className="px-7 py-3 border border-[#E2E8F0] text-[#64748B] font-medium rounded-lg hover:border-[#3B82F6] hover:text-[#3B82F6] transition-colors text-sm">
+                <Link href="/contact" className="px-8 py-4 border border-white/20 text-[#94A3B8] font-medium rounded-lg hover:border-[#3B82F6] hover:text-white transition-colors text-sm">
                   Talk to us
                 </Link>
               </motion.div>
@@ -74,7 +84,7 @@ export default function Home() {
               initial={{ opacity: 0, x: 24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="bg-[#F1F5F9] rounded-2xl p-6 border border-[#E2E8F0]"
+              className="lg:col-span-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6"
             >
               <p className="text-[10px] text-[#94A3B8] tracking-[0.15em] font-semibold uppercase mb-4">Trusted Across</p>
               <div className="grid grid-cols-2 gap-3">
@@ -84,8 +94,8 @@ export default function Home() {
                   { num: "6", label: "Step process", accent: true },
                   { num: "FinTech", label: "Core specialism", accent: false },
                 ].map((item, i) => (
-                  <div key={i} className="bg-white rounded-xl p-4 border border-[#E8ECF0]">
-                    <div className={`text-2xl font-bold ${item.accent ? "text-[#3B82F6]" : "text-[#0F172A]"}`}>{item.num}</div>
+                  <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <div className={`text-2xl font-bold ${item.accent ? "text-[#3B82F6]" : "text-white"}`}>{item.num}</div>
                     <div className="text-[11px] text-[#94A3B8] mt-1">{item.label}</div>
                   </div>
                 ))}
