@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Marquee from "@/components/home/Marquee";
 import Footer from "@/components/layout/Footer";
+import { Building2, Landmark, Stethoscope, Briefcase } from "lucide-react";
 
 import type { Variants } from "framer-motion";
 
@@ -36,10 +37,10 @@ const projects = [
 ];
 
 const industries = [
-  { label: "Banking", sub: "Financial institutions", icon: "🏦" },
-  { label: "Government", sub: "Public sector agencies", icon: "🏛️" },
-  { label: "Healthcare", sub: "Health tech systems", icon: "🏥" },
-  { label: "SMEs", sub: "Growing businesses", icon: "📈" },
+  { label: "Banking", sub: "Financial institutions", icon: Building2 },
+  { label: "Government", sub: "Public sector agencies", icon: Landmark },
+  { label: "Healthcare", sub: "Health tech systems", icon: Stethoscope },
+  { label: "SMEs", sub: "Growing businesses", icon: Briefcase },
 ];
 
 export default function Home() {
@@ -96,53 +97,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── INDUSTRY BAR — redesigned ── */}
+      {/* ── INDUSTRY BAR ── */}
       <section className="relative overflow-hidden">
-        {/* top label row */}
         <div className="bg-[#0F172A] px-6 md:px-8 py-3 flex items-center justify-between">
           <p className="text-[10px] text-[#475569] tracking-[0.2em] uppercase font-medium">Industries We Serve</p>
           <p className="text-[10px] text-[#475569] tracking-[0.2em] uppercase font-medium">12 Sectors</p>
         </div>
-
-        {/* main industry grid */}
         <div className="grid grid-cols-2 md:grid-cols-4">
-          {industries.map((ind, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              viewport={{ once: true }}
-              className={`relative group px-8 py-8 bg-[#3B82F6] hover:bg-[#2563EB] transition-colors duration-300 cursor-pointer
-                ${i < 3 ? "border-r border-[#2563EB]" : ""}
-                ${i < 2 ? "border-b border-[#2563EB] md:border-b-0" : ""}
-              `}
-            >
-              {/* number label */}
-              <div className="text-[10px] text-blue-300/60 font-mono tracking-widest mb-3">
-                {String(i + 1).padStart(2, "0")}
-              </div>
-
-              {/* icon */}
-              <div className="text-2xl mb-3">{ind.icon}</div>
-
-              {/* label */}
-              <div className="text-white font-bold text-xl leading-tight mb-1">
-                {ind.label}
-              </div>
-
-              {/* sub */}
-              <div className="text-blue-200 text-sm">{ind.sub}</div>
-
-              {/* arrow on hover */}
-              <div className="absolute bottom-6 right-6 text-blue-300/0 group-hover:text-blue-200/80 transition-all duration-300 text-lg">
-                →
-              </div>
-            </motion.div>
-          ))}
+          {industries.map((ind, i) => {
+            const Icon = ind.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                viewport={{ once: true }}
+                className={`relative group px-8 py-8 bg-[#3B82F6] hover:bg-[#2563EB] transition-colors duration-300 cursor-pointer
+                  ${i < 3 ? "border-r border-[#2563EB]" : ""}
+                  ${i < 2 ? "border-b border-[#2563EB] md:border-b-0" : ""}
+                `}
+              >
+                <div className="text-[10px] text-blue-300/60 font-mono tracking-widest mb-3">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="mb-3 text-white">
+                  <Icon size={24} />
+                </div>
+                <div className="text-white font-bold text-xl leading-tight mb-1">
+                  {ind.label}
+                </div>
+                <div className="text-blue-200 text-sm">{ind.sub}</div>
+                <div className="absolute bottom-6 right-6 text-blue-300/0 group-hover:text-blue-200/80 transition-all duration-300 text-lg">
+                  →
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-
-        {/* bottom strip */}
         <div className="bg-[#0F172A] px-6 md:px-8 py-3 flex items-center gap-6 overflow-hidden">
           {["Banking & Finance", "FinTech", "Healthcare", "Government", "Education", "Insurance", "Manufacturing", "Logistics", "Retail", "SMEs", "Hospitality", "Professional Services"].map((s, i) => (
             <span key={i} className="text-[10px] text-[#334155] tracking-widest uppercase whitespace-nowrap font-medium flex items-center gap-4">
