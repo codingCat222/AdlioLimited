@@ -17,26 +17,49 @@ export default function ServicesPage() {
   ];
 
   return (
-    <section className="min-h-screen pt-40 pb-24 px-8 max-w-7xl mx-auto relative z-10">
-      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="mb-20">
-        <p className="text-muted text-[10px] tracking-widest uppercase mb-6">Services Capabilities</p>
-        <h1 className="text-7xl md:text-8xl font-bold text-white leading-[1] tracking-tight mb-8">
+    <section className="min-h-screen pt-40 pb-24 px-8 max-w-7xl mx-auto bg-white">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.8 }} 
+        className="mb-20"
+      >
+        <p className="text-[#3B82F6] text-[10px] tracking-widest uppercase font-semibold mb-6">
+          Services Capabilities
+        </p>
+        <h1 className="text-6xl md:text-7xl font-bold text-[#0F172A] leading-[1.1] tracking-tight mb-8">
           Crafting the future of <br /> digital experiences.
         </h1>
-        <p className="text-muted text-xl max-w-3xl">
+        <p className="text-[#64748B] text-lg max-w-3xl">
           Adlio blends technical excellence with strategic intuition to build solutions that don't just work, they resonate.
         </p>
       </motion.div>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.3 }} className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-border">
+      <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        transition={{ duration: 0.8, delay: 0.3 }} 
+        className="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-[#E2E8F0]"
+      >
         {services.map((service, index) => (
-          <div key={index} className="p-12 border-b md:border-b-0 md:border-r border-border last:border-r-0 flex flex-col justify-between min-h-[360px] bg-card/20 hover:bg-card/40 transition-colors">
-            <div className="space-y-4">
-              <div className="flex justify-between items-start"><p className="text-muted text-[10px] tracking-widest uppercase">{service.category}</p><span className="text-muted text-xs">0{index + 1}</span></div>
-              <h3 className="text-3xl font-bold text-white">{service.title}</h3>
-              <p className="text-muted text-sm max-w-sm leading-relaxed">{service.description}</p>
+          <div 
+            key={index} 
+            className="p-10 border-b md:border-b-0 md:border-r border-[#E2E8F0] last:border-r-0 flex flex-col justify-between min-h-[320px] bg-white hover:bg-[#F8F9FB] transition-colors group"
+          >
+            <div className="space-y-3">
+              <div className="flex justify-between items-start">
+                <p className="text-[#94A3B8] text-[10px] tracking-widest uppercase font-medium">{service.category}</p>
+                <span className="text-[#94A3B8] text-xs">0{index + 1}</span>
+              </div>
+              <h3 className="text-2xl font-semibold text-[#0F172A]">{service.title}</h3>
+              <p className="text-[#64748B] text-sm leading-relaxed">{service.description}</p>
             </div>
-            <Link href="/contact" className="text-muted hover:text-white transition-colors text-xs tracking-widest uppercase mt-8 inline-block">Explore →</Link>
+            <Link 
+              href="/contact" 
+              className="inline-block mt-8 text-[10px] text-[#3B82F6] font-medium tracking-widest uppercase group-hover:underline transition-all"
+            >
+              Explore →
+            </Link>
           </div>
         ))}
       </motion.div>

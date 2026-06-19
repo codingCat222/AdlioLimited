@@ -5,12 +5,10 @@ import Marquee from "@/components/home/Marquee";
 import Footer from "@/components/layout/Footer";
 import { Building2, Landmark, Stethoscope, Briefcase } from "lucide-react";
 
-import type { Variants } from "framer-motion";
-
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: [0.25, 0.1, 0.25, 1] as const },
+  transition: { duration: 0.7, delay, ease: "easeOut" },
 });
 
 const services = [
@@ -164,7 +162,7 @@ export default function Home() {
               View all services →
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((s, i) => (
               <motion.div
                 key={i}
@@ -172,15 +170,15 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.07 }}
                 viewport={{ once: true }}
-                className="bg-[#F8F9FB] border border-[#E2E8F0] rounded-xl p-6 border-t-4 border-t-transparent hover:border-t-[#3B82F6] transition-all group cursor-pointer"
+                className="bg-[#F8F9FB] border border-[#E2E8F0] rounded-xl p-6 border-t-4 border-t-transparent hover:border-t-[#3B82F6] transition-all group"
               >
                 <div className="w-9 h-9 bg-[#EFF6FF] rounded-lg flex items-center justify-center mb-4">
                   <div className="w-3 h-3 rounded-full bg-[#3B82F6]" />
                 </div>
                 <p className="text-[10px] text-[#94A3B8] tracking-widest uppercase mb-2">{s.category}</p>
-                <h3 className="text-[#0F172A] font-semibold text-base leading-snug mb-2">{s.title}</h3>
+                <h3 className="text-[#0F172A] font-semibold text-base leading-snug mb-1">{s.title}</h3>
                 <p className="text-[#64748B] text-sm leading-relaxed">{s.desc}</p>
-                <Link href="/services" className="text-[10px] text-[#3B82F6] font-medium tracking-widest uppercase mt-4 inline-block group-hover:underline">
+                <Link href="/services" className="inline-block mt-4 text-[10px] text-[#3B82F6] font-medium tracking-widest uppercase group-hover:underline">
                   EXPLORE →
                 </Link>
               </motion.div>
