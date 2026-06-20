@@ -1,11 +1,13 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Marquee from "@/components/home/Marquee";
 import Footer from "@/components/layout/Footer";
 import HeroCanvas from "@/components/home/HeroCanvas";
 import { Building2, Landmark, Stethoscope, Briefcase } from "lucide-react";
+import { portfolioItems } from "@/lib/data";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -27,13 +29,6 @@ const stats = [
   { num: "98%", label: "Client Satisfaction" },
   { num: "5+", label: "Years of Excellence" },
   { num: "20+", label: "Clients Served" },
-];
-
-const projects = [
-  { category: "Web Design & Development", title: "ClubSync", desc: "A high-end digital experience for a club automotive care brand." },
-  { category: "Web Design & Development", title: "Premium Auto Customization", desc: "An interactive platform for vehicle customization and bookings." },
-  { category: "Web Design & Development", title: "Carezest", desc: "An immersive platform for a care coordination company." },
-  { category: "Mobile Application", title: "Smart Event Check-In App", desc: "An intuitive mobile application for event organizers." },
 ];
 
 const industries = [
@@ -105,6 +100,9 @@ export default function Home() {
   }, []);
 
   const slide = heroSlides[currentSlide];
+
+  // Show only the first 4 projects on the homepage
+  const featuredProjects = portfolioItems.slice(0, 4);
 
   return (
     <main className="min-h-screen">
@@ -326,41 +324,75 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FEATURED WORK ── */}
+      {/* ── FEATURED WORK (FETCHED FROM LIB) ── */}
       <section className="bg-white py-24 px-6 md:px-8 border-b border-[#E2E8F0]">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-12 pb-8 border-b border-[#E2E8F0]">
             <div>
               <p className="text-[#3B82F6] text-[10px] tracking-widest uppercase font-semibold mb-2">Selected Work</p>
               <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A]">Featured work.</h2>
+              <p className="text-[#64748B] text-sm mt-3 max-w-lg leading-relaxed">
+                A showcase of our best projects across various industries.
+              </p>
             </div>
-            <Link href="/portfolio" className="text-[#64748B] hover:text-[#3B82F6] transition-colors text-sm whitespace-nowrap hidden md:block">
-              View all projects →
-            </Link>
           </div>
-          <div className="border-t border-[#E2E8F0]">
-            {projects.map((p, i) => (
+
+          {/* 🟢 GRID USING DATA FROM LIB */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProjects.map((item, index) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="grid grid-cols-1 md:grid-cols-12 gap-8 py-10 border-b border-[#E2E8F0] group"
+                className="group bg-white border border-[#E2E8F0] rounded-xl overflow-hidden hover:border-[#3B82F6] transition-colors"
               >
-                <div className="md:col-span-1 text-[#94A3B8] text-sm font-medium pt-1">{String(i + 1).padStart(2, "0")}</div>
-                <div className="md:col-span-4 bg-[#F8F9FB] border border-[#E2E8F0] rounded-xl aspect-video flex items-center justify-center text-[#94A3B8] text-sm group-hover:border-[#3B82F6]/40 transition-colors">
-                  Project Image
+                <div className="relative aspect-[4/3] bg-[#F8F9FB]">
+                  <Image 
+                    src={item.image} 
+                    alt={item.title} 
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
                 </div>
-                <div className="md:col-span-7 flex flex-col justify-center">
-                  <p className="text-[#94A3B8] text-[10px] tracking-widest uppercase mb-2">{p.category}</p>
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-3 group-hover:text-[#3B82F6] transition-colors">{p.title}</h3>
-                  <p className="text-[#64748B] text-sm max-w-lg leading-relaxed">{p.desc}</p>
-                  <Link href="#" className="mt-4 text-sm text-[#3B82F6] font-medium inline-block hover:underline">View Project ↗</Link>
+                <div className="p-5">
+                  <p className="text-[#94A3B8] text-[10px] tracking-widest uppercase mb-1">{item.category}</p>
+                  <h3 className="text-lg font-bold text-[#0F172A] mb-2 group-hover:text-[#3B82F6] transition-colors">{item.title}</h3>
+                  <p className="text-[#64748B] text-sm leading-relaxed line-clamp-2">{item.description}</p>
+                  
+                  {item.isDemo ? (
+                    <Link 
+                      href="/contact"
+                      className="mt-3 inline-block px-4 py-2 bg-[#3B82F6] text-white text-sm font-medium rounded-lg hover:bg-[#2563EB] transition-colors"
+                    >
+                      Request Demo
+                    </Link>
+                  ) : (
+                    <Link 
+                      href={item.link}
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="mt-3 inline-block text-sm text-[#3B82F6] font-medium hover:underline"
+                    >
+                      View Project ↗
+                    </Link>
+                  )}
                 </div>
               </motion.div>
             ))}
           </div>
+
+          {/* 🟢 SEE MORE BUTTON ADDED HERE */}
+          <div className="flex justify-center mt-12">
+            <Link 
+              href="/portfolio"
+              className="px-8 py-4 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-[#2563EB] transition-colors text-base"
+            >
+              See more
+            </Link>
+          </div>
+
         </div>
       </section>
 
