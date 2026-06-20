@@ -98,7 +98,7 @@ export const portfolioItems = [
     title: "Carezest – Caregiving Services Management Platform", 
     category: "Web and mobile App Development", 
     description: "A centralized platform designed to manage caregiving services between care agencies, caregivers, and family members. It streamlines caregiver onboarding, scheduling, task assignment, and real-time care tracking, while improving communication and accountability across all stakeholders. The system ensures efficient coordination and better quality of care delivery.",
-    image: "/image/img11.png",
+    image: "/image/img1.png",
     link: "https://carezestservice.com",
     isDemo: false
   },
@@ -106,7 +106,7 @@ export const portfolioItems = [
     title: "Cartify Market – E-commerce Marketplace Platform", 
     category: "WebApp Development", 
     description: "A modern online marketplace that connects buyers and sellers in a seamless digital shopping environment. Cartify Market enables product listing, secure payments, order management, and real-time inventory tracking, providing a smooth and efficient buying and selling experience for users and vendors.",
-    image: "/image/img12.png",
+    image: "/image/img13.png",
     link:"https://carttifys-jvyd.vercel.app",
     isDemo: false
   },
@@ -114,7 +114,7 @@ export const portfolioItems = [
     title: "CRARTY AI – AI-Powered SaaS Brand Studio", 
     category: "WebApp Development", 
     description: "A cloud-based SaaS platform that helps users generate, design, and refine brand identities using AI. CRARTY AI streamlines the creation of logos, brand assets, and visual concepts, enabling startups and businesses to build consistent, professional branding faster and more efficiently through an intuitive online workspace.",
-    image: "/image/img13.png",
+    image: "/image/img12.png",
     link: "https://crarty.vercel.app",
     isDemo: false
   },
