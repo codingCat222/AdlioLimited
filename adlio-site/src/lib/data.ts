@@ -114,7 +114,7 @@ export const portfolioItems = [
     title: "CRARTY AI – AI-Powered SaaS Brand Studio", 
     category: "WebApp Development", 
     description: "A cloud-based SaaS platform that helps users generate, design, and refine brand identities using AI. CRARTY AI streamlines the creation of logos, brand assets, and visual concepts, enabling startups and businesses to build consistent, professional branding faster and more efficiently through an intuitive online workspace.",
-    image: "/image/img12.png",
+    image: "/image/img13.png",
     link: "https://crarty.vercel.app",
     isDemo: false
   },
