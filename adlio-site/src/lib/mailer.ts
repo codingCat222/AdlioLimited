@@ -1,11 +1,14 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
-// Do NOT initialize Resend here directly.
-// Instead, use a function that creates it only when needed.
-
-export function getResendClient() {
-  if (!process.env.RESEND_API_KEY) {
-    throw new Error('RESEND_API_KEY is not defined in environment variables');
-  }
-  return new Resend(process.env.RESEND_API_KEY);
-}
+export const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: process.env.SMTP_SECURE === 'true',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
+});

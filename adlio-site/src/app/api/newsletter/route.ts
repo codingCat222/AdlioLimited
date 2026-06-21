@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { NewsletterSchema } from '@/lib/validators';
 import { prisma } from '@/lib/db';
-import { getResendClient } from '@/lib/mailer';
+import { transporter } from '@/lib/mailer';
 
 export async function POST(request: Request) {
   try {
@@ -13,13 +13,17 @@ export async function POST(request: Request) {
       data: { email },
     });
 
-    const resend = getResendClient();
-
-    await resend.emails.send({
-      from: 'Adlio <onboarding@resend.dev>',
-      to: [process.env.ADMIN_EMAIL || 'your-email@example.com'],
+    transporter.sendMail({
+      from: `"Adlio Limited" <${process.env.SMTP_USER}>`,
+      to: process.env.ADMIN_EMAIL || 'your-email@example.com',
       subject: 'New Newsletter Subscription',
-      html: `<p>New subscriber: ${email}</p>`,
+      html: `
+        <h2>New Subscriber</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p>This email has been added to your newsletter list.</p>
+      `,
+    }).catch((err) => {
+      console.error('Newsletter notification email failed:', err);
     });
 
     return NextResponse.json({ success: true }, { status: 200 });
@@ -30,6 +34,7 @@ export async function POST(request: Request) {
     if (error.name === 'ZodError') {
       return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
     }
+    console.error('Newsletter signup error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

@@ -131,7 +131,7 @@ export default function ContactPage() {
                 <label className="text-[#64748B] text-[10px] tracking-widest uppercase font-medium">Your Message</label>
                 <textarea name="message" value={formData.message} onChange={handleChange} required rows={5}
                   className="w-full px-4 py-3 bg-[#F8F9FB] border border-[#E2E8F0] rounded-lg text-[#0F172A] text-sm outline-none focus:border-[#3B82F6] transition-colors placeholder:text-[#94A3B8] resize-none"
-                  placeholder="Tell us about your project..." />
+                  placeholder="Tell us about your project more than 10 characters..." />
               </div>
               <button type="submit" disabled={status === "loading"}
                 className="w-full py-4 bg-[#3B82F6] text-white font-semibold rounded-lg hover:bg-[#2563EB] transition-colors disabled:opacity-50 text-sm">

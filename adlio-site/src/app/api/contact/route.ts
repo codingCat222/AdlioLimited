@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { ContactSchema } from '@/lib/validators';
 import { prisma } from '@/lib/db';
-import { getResendClient } from '@/lib/mailer';
+import { transporter } from '@/lib/mailer';
 
 export async function POST(request: Request) {
   try {
@@ -13,14 +13,20 @@ export async function POST(request: Request) {
       data: { name, email, company, message },
     });
 
-    // Initialize Resend INSIDE the function, not at the top level
-    const resend = getResendClient();
-
-    await resend.emails.send({
-      from: 'Adlio <onboarding@resend.dev>',
-      to: [process.env.ADMIN_EMAIL || 'your-email@example.com'],
+    transporter.sendMail({
+      from: `"Adlio Limited" <${process.env.SMTP_USER}>`,
+      to: process.env.ADMIN_EMAIL || 'your-email@example.com',
       subject: `New Contact from ${name}`,
-      html: `<h2>New Message</h2><p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Company:</strong> ${company || 'N/A'}</p><p><strong>Message:</strong></p><p>${message}</p>`,
+      html: `
+        <h2>New Message</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Company:</strong> ${company || 'N/A'}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
+    }).catch((err) => {
+      console.error('Email send failed:', err);
     });
 
     return NextResponse.json({ success: true }, { status: 200 });
@@ -28,6 +34,7 @@ export async function POST(request: Request) {
     if (error.name === 'ZodError') {
       return NextResponse.json({ error: 'Invalid input data' }, { status: 400 });
     }
+    console.error('Contact submission error:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
